@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:notes_app/databaseclass.dart';
 import 'package:notes_app/main.dart';
 import 'package:sqflite_common/sqlite_api.dart';
@@ -71,6 +72,15 @@ class _editpgState extends State<editpg> {
                                 return firstpage();
                               },
                             ));
+                            Fluttertoast.showToast(
+                                msg: "Saved",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.grey,
+                                textColor: Colors.white,
+                                fontSize: 16.0
+                            );
                           },
                           child: Text("Save")),
                     ),

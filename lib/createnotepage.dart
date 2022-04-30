@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:notes_app/databaseclass.dart';
 import 'package:notes_app/main.dart';
 import 'package:sqflite/sqflite.dart';
@@ -15,6 +16,7 @@ class _createnotepgState extends State<createnotepg> {
 
   TextEditingController title = TextEditingController();
   TextEditingController notes = TextEditingController();
+  DateTime dateTime = DateTime.now();
 
   Database? db;
   bool apploadstatus = false;
@@ -72,12 +74,25 @@ class _createnotepgState extends State<createnotepg> {
                                 },
                               ));
                             });
+                            Fluttertoast.showToast(
+                                msg: "Saved",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.grey,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
                           },
                           child: Text("Save")),
                     ),
                     Container(
                       padding: EdgeInsets.all(5),
                       child: TextField(
+                        toolbarOptions: ToolbarOptions(
+                            copy: true,
+                            cut: true,
+                            paste: true,
+                            selectAll: true),
                         controller: title,
                         style: TextStyle(fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
@@ -89,6 +104,11 @@ class _createnotepgState extends State<createnotepg> {
                       height: thebodyheight * 0.7,
                       // margin: EdgeInsets.all(5),
                       child: TextField(
+                        toolbarOptions: ToolbarOptions(
+                            copy: true,
+                            cut: true,
+                            paste: true,
+                            selectAll: true),
                         maxLines: 15,
                         controller: notes,
                         decoration: InputDecoration(
@@ -107,7 +127,7 @@ class _createnotepgState extends State<createnotepg> {
                               lastDate: DateTime(2030),
                               builder: (context, child) {
                                 return Theme(
-                                    data: ThemeData.dark(), child: child!);
+                                    data: ThemeData.light(), child: child!);
                               },
                             ).then((value) {
                               date =
@@ -163,7 +183,6 @@ class _createnotepgState extends State<createnotepg> {
                 children: [
                   FlatButton(
                       onPressed: () {
-
                         Navigator.pop(context);
 
                         Navigator.pushReplacement(context, MaterialPageRoute(
