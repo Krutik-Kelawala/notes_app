@@ -100,9 +100,59 @@ class _createnotepgState extends State<createnotepg> {
                         ),
                       ),
                     ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        child: FlatButton.icon(
+                            onPressed: () {
+                              showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2040),
+                                builder: (context, child) {
+                                  return Theme(
+                                      data: ThemeData.light(), child: child!);
+                                },
+                              ).then((value) {
+                                setState(() {
+                                  date =
+                                      "${value!.day.toString()}/${value.month.toString()}/${value.year.toString()}";
+                                });
+                              });
+                            },
+                            icon: Icon(Icons.date_range),
+                            label: Text("${date}")),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                          child: FlatButton.icon(
+                              onPressed: () {
+                                showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                  builder: (context, child) {
+                                    return MediaQuery(
+                                        data: MediaQuery.of(context).copyWith(
+                                            alwaysUse24HourFormat: false),
+                                        child: child!);
+                                  },
+                                ).then((value) {
+                                  setState(() {
+                                    time1 =
+                                        "${value!.hour.toString()} : ${value.minute.toString()}\t${value.period.toString().split('.')[1]}";
+                                  });
+                                });
+                              },
+                              icon: Icon(Icons.access_time),
+                              label: Text("$time1"))),
+                    ),
                     Container(
                       height: thebodyheight * 0.7,
                       // margin: EdgeInsets.all(5),
+
                       child: TextField(
                         toolbarOptions: ToolbarOptions(
                             copy: true,
@@ -117,47 +167,6 @@ class _createnotepgState extends State<createnotepg> {
                             hintText: "Enter Notes"),
                       ),
                     ),
-                    Container(
-                      child: FlatButton.icon(
-                          onPressed: () {
-                            showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2030),
-                              builder: (context, child) {
-                                return Theme(
-                                    data: ThemeData.light(), child: child!);
-                              },
-                            ).then((value) {
-                              date =
-                                  "${value!.year.toString()}/${value.month.toString()}/${value.day.toString()}";
-                            });
-                          },
-                          icon: Icon(Icons.date_range),
-                          label: Text("${date}")),
-                    ),
-                    Container(
-                        child: FlatButton.icon(
-                            onPressed: () {
-                              showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.now(),
-                                builder: (context, child) {
-                                  return MediaQuery(
-                                      data: MediaQuery.of(context).copyWith(
-                                          alwaysUse24HourFormat: true),
-                                      child: child!);
-                                },
-                              ).then((value) {
-                                setState(() {
-                                  time1 =
-                                      "${value!.hour.toString()} : ${value.minute.toString()}";
-                                });
-                              });
-                            },
-                            icon: Icon(Icons.access_time),
-                            label: Text("$time1"))),
                   ],
                 ),
               )),
