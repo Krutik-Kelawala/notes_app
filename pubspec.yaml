@@ -39,7 +39,7 @@ dependencies:
   fluttertoast:
   clipboard:
   share_plus:
-
+  shimmer:
 
 
 dev_dependencies:
